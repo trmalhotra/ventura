@@ -41,12 +41,12 @@ public class VenturaController {
 			@ApiParam(value = "Opportunity object store in database table", required = true) @Valid @RequestBody Opportunity opportunity) {
 		try {
 			venturaService.addNewOpportunity(opportunity);
-			log.info("Opportunity Role: " + opportunity.getRole());
+			log.info("Opportunity Role: " + opportunity.getPosition());
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Opportunity was not added due to some internal issue",
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<String>("Opportunity " + opportunity.getRole() + " was added succesfully",
+		return new ResponseEntity<String>("Opportunity " + opportunity.getPosition() + " was added succesfully",
 				HttpStatus.OK);
 	}
 
@@ -78,11 +78,11 @@ public class VenturaController {
 		Profile profileAdded = null;
 		try {
 			profileAdded = venturaService.addNewProfile(profile);
-			log.info("Profile created for Candidate: " + profileAdded.getCandidateName());
+			log.info("Profile created for Candidate: " + profileAdded.getFirstName());
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		if (profileAdded == null || profileAdded.getCandidateName() == null) {
+		if (profileAdded == null || profileAdded.getFirstName() == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(profileAdded, HttpStatus.OK);
